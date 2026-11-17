@@ -1,5 +1,18 @@
 name: Run pytest
-on: push
+
+on:
+  push:
+    paths:
+      - "src/**"
+      - "tests/**"
+      - "requirements.txt"
+      - ".github/workflows/run-pytest.yml"
+
+  workflow_dispatch:
+
+concurrency:
+  group: pytest-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
